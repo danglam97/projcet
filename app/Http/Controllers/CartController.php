@@ -6,12 +6,16 @@ use App\Banner;
 use App\Cart;
 use App\Category; // cần thêm dòng này nếu chưa có
 use App\Coupon;
+use Mail;
+use App\Mail\ShoppingMail;
 use App\Order;
 use App\OrderDetail;
 use App\Product;
+use App\User;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+//use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class CartController extends GeneralController
@@ -190,8 +194,9 @@ class CartController extends GeneralController
             // Tạo mã đơn hàng gửi tới khách hàng
             $order->code = 'DH-'.$order->id.'-'.date('d').date('m').date('Y');
             $order->save();
+            $orderDetail = [];
 
-            foreach ($_cart->products as $product) {
+            foreach ($_cart->products as $key=> $product) {
                 $_detail = new OrderDetail();
                 $_detail->order_id = $order->id;
                 $_detail->name = $product['item']->name;
@@ -201,9 +206,11 @@ class CartController extends GeneralController
                 $_detail->product_id = $product['item']->id;
                 $_detail->qty = $product['qty'];
                 $_detail->price = $product['price'];
+                $orderDetail[$key] = OrderDetail::findorFail($orderDetail);
+
                 $_detail->save();
             }
-
+            Mail::to($order->email)->send(new ShoppingMail($order, $orderDetail));
             // Xóa thông tin giỏ hàng Hiện tại
             $request->session()->forget('cart');
 

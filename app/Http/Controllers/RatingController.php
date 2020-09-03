@@ -10,24 +10,24 @@ class RatingController extends Controller
 {
     public function saveRating(Request $request, $id)
     {
-            if ($request->ajax())
-            {
-                Rating::insert([
+        $product = Product::find($id);
+        $product->total_number += $_GET['number_rating'];
+        $product->total_rating +=1;
+        $product->save();
+//        $test = $_GET['name'];
+        Rating::insert([
                    'product_id'=>$id,
-                    'ra_number'=>$request->number_rating,
-                    'content'=>$request->contents,
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'phone' => $request->phone,
-//                    'user_id' => get_data_user('web')
+                    'ra_number'=>$_GET['number_rating'],
+                    'content'=>$_GET['contents'],
+                    'name' => $_GET['name'],
+                    'email' => $_GET['email'],
+                    'phone' => $_GET['phone']
 
-                ]);
-                $product = Product::find($id);
+        ]);
+//        dd($product->total_rating, $product->total_number + 1, $test );
 
-                $product->total_rating += $request->number_rating;
-                $product->total_number +1;
-                $product->save();
-                return response()->json(['code'=>'1']);
-            }
+        return response()->json(['code'=>'1']);
+
     }
+
 }

@@ -51,7 +51,7 @@ Route::get('/thanh-toan', 'CartController@checkout')->name('shop.cart.checkout')
 
 Route::post('/thanh-toan', 'CartController@postCheckout')->name('shop.cart.checkout');
 
-Route::post('/danh-gia/{id}', 'RatingController@saveRating')->name('shop.rating.product');
+Route::get('/danh-gia/{id}', 'RatingController@saveRating')->name('shop.rating.product');
 
 // ROUTE GROUP Admin
 // gôm nhóm router trang admin

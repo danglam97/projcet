@@ -92,7 +92,7 @@
 {{ 'home' }}
 @endif >
  <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v8.0" nonce="pDF1JefD"></script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v8.0" nonce="xMZjJWp7"></script>
 
 @include('Shop.layouts.header')
 <section class="main-content-section">

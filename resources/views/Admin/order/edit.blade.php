@@ -42,10 +42,6 @@
                                 <i class="fa fa-edit"></i>
                                 Cập nhật
                             </button>
-                            <a type="submit" class="btn btn-info btn-flat">
-                                <i class="fa fa-edit"></i>
-                                Danh Sách
-                            </a>
                         </div>
                         <div class="box-body">
                             <table class="table table-bordered">
@@ -130,8 +126,10 @@
                                 <th class="text-center"></th>
                             </tr>
                             </tbody>
+{{--                        {{dd($order->details)}}--}}
                             <!-- Lặp một mảng dữ liệu pass sang view để hiển thị -->
                                 @foreach($order->details as $key => $item)
+
                                 <tr class="item-{{ $item->id }}"> <!-- Thêm Class Cho Dòng -->
                                     <td>{{ $key ++}}</td>
                                     <td>

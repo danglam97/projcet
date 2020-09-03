@@ -34,6 +34,9 @@
         .list_start .ad{
             color: #fd9727;
         }
+        .single-product-condition .active{
+            color: #fd9727 !important;
+        }
     </style>
     <section class="main-content-section">
         <div class="container">
@@ -70,12 +73,19 @@
                             </div>
 
                         </div>
+                        <?php
+                        $age = 0;
+                        if ($product->total_rating){
+                            $age = $product->total_number / $product->total_rating;
+
+                        }
+                        ?>
                         <div class="col-lg-7 col-md-7 col-sm-8 col-xs-12">
                             <div class="single-product-descirption">
                                 <h2>{{ $product->name }}</h2>
                                 <div class="single-product-condition">
                                     @for($i=1; $i<=5; $i++)
-                                         <i class="fa fa-star"></i>
+                                         <i class="fa fa-star {{$i <= $age ? 'active': ''}}"></i>
                                     @endfor
                                     <p>số lượng: <span>{{ $product->stock }}</span></p>
                                     <p>Tình Trạng: <span>{{ ($product->stock >0) ? 'Còn Hàng' : 'Hết Hàng' }}</span></p>
@@ -95,14 +105,14 @@
                                     <div class="">
                                         <div class="">
                                             <input class="cart-plus-minus sing-pro-qty" type="number" name="qtybutton" value="1" min="1">
+
                                         </div>
                                     </div>
                                 </div>
-                                <div class="single-product-size">
 
-                                </div>
-                                <div class="single-product-color">
 
+                                <div class="single-product-color" style=" margin-top: 15px;">
+                                    <div class="fb-like" data-href="http://viettelstore.com/" data-width="" data-layout="button" data-action="like" data-size="large" data-share="true"></div>
                                 </div>
                                 <div class="single-product-add-cart" >
                                     <a class="add-cart-text" title="Add to cart" href="{{route('shop.cart.add-to-cart', ['id' => $product->id]) }}" style="border-radius: 10px"> <i class="fa fa-cart-plus" aria-hidden="true"></i>  &nbsp;Giỏ Hàng </a>
@@ -110,6 +120,7 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- SINGLE-PRODUCT-DESCRIPTION END -->
                     <!-- SINGLE-PRODUCT INFO TAB START -->
                     <div class="row">
@@ -151,13 +162,27 @@
                                                        {{$i}} <i class="fa fa-star"></i>
                                                     </div>
                                                     <div>
-                                                        <span style="width: 200px; height:6px;display:block;border:1px solid; margin-top: 8px; margin-left: 5px; margin-right:5px; border-radius: 5px;"><b></b></span>
+                                                        <span style="width: 200px; height:6px;display:block;border:1px solid; margin-top: 8px; margin-left: 5px; margin-right:5px; border-radius: 5px;background: #fd9727; "><b></b></span>
                                                     </div>
                                                     <div >
-                                                        <span>10 đánh giá</span>
+                                                        @if($i==1)
+                                                        <span>{{$rate_1}} đánh giá</span>
+                                                        @elseif($i==2)
+                                                            <span>{{$rate_2}} đánh giá</span>
+                                                        @elseif($i==3)
+                                                            <span>{{$rate_3}} đánh giá</span>
+                                                        @elseif($i==4)
+                                                            <span>{{$rate_4}} đánh giá</span>
+                                                        @else
+
+                                                                <span>{{$rate_5}} đánh giá</span>
+
+
+@endif
                                                     </div>
                                                 </div>
                                                 @endfor
+
                                             </div>
 
                                             <div class=" col-lg-2 padding-5">
@@ -166,6 +191,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <form class="form_rating hidden" name="fRatingComment">
                                             <div style="display: flex; margin-top: 15px;" >
                                                 <p style="margin-top: 1px; margin-bottom: 0;" >chọn đánh giá của bạn</p>
@@ -346,15 +372,15 @@
                 let phone =$('.phone').val();
                 let email =$('.email').val();
 
+
                 // console.log(conntent,number_rating,name,phone,email)
                 let url = $(this).attr('href');
                if (conntent && number_rating)
                {
                    $.ajax({
                        url: url,
-                       type: 'POST',
+                       type: 'GET',
                        data : {
-
                            number_rating:number_rating,
                            contents:  content,
                            name : name,
@@ -363,8 +389,9 @@
                        },
                        dataType: "json",
                    }).done(function(result) {
+
                        if (result.code == 1) {
-                           toast.success("cảm ơn","thông báo");
+                                alert("bạn đã đánh giá thành công")
                            location.reload();
                        }
                    });

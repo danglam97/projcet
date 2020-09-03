@@ -46,10 +46,12 @@
                             <!-- Lặp một mảng dữ liệu pass sang view để hiển thị -->
                             @foreach($data as $key => $item)
 
+
                                 <?php
                                     $age = 0;
                                     if ($item->total_rating){
-                                        $age = round($item->total_number / $item->total_rating);
+                                        $age = $item->total_number / $item->total_rating;
+
                                     }
                                 ?>
                                 <tr class="item-{{ $item->id }}"> <!-- Thêm Class Cho Dòng -->
@@ -62,6 +64,7 @@
                                             <i class="fa fa-star {{$i <= $age ? 'active': ''}}"></i>
                                         @endfor
                                         </div>
+                                        <span>{{$age}}</span>
                                     </td>
 
                                     <td>

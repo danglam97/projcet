@@ -7,6 +7,7 @@ use App\Banner;
 use App\Category;
 use App\Contact;
 use App\Product;
+use App\Rating;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -91,6 +92,34 @@ class ShopController extends GeneralController
 //        if (!$id){
 //            return $this->notfound();
 //        }
+
+        $list = [] ;
+        $rate_5 = 0;
+        $rate_4 = 0;
+        $rate_3 = 0;
+        $rate_2 = 0;
+        $rate_1 = 0;
+        $rating = Rating::all();
+        foreach ( $rating as $item ) {
+            if ( $item->product_id == $id ) {
+                $list [] = $item;
+            }
+        }
+
+        foreach ( $list as $item ) {
+            if ( $item->ra_number == 5 ) {
+                $rate_5 ++;
+            } elseif ( $item->ra_number == 4 ) {
+                $rate_4 ++;
+            } elseif ( $item->ra_number == 3 ) {
+                $rate_3++;
+            }elseif ( $item->ra_number == 2 ) {
+                $rate_2++;
+            }else{
+                $rate_1 ++;
+            }
+        }
+//        dd($rate_4);
             $product = Product::find($id);
 
             $category = Category::find($product->category_id);
@@ -121,9 +150,15 @@ class ShopController extends GeneralController
                 'relatedProducts' => $relatedProducts,
                 'tags' => $tags,
                 'views' => $view,
+                'rate_5' => $rate_5,
+                'rate_4' => $rate_4,
+                'rate_3' => $rate_3,
+                'rate_2' => $rate_2,
+                'rate_1' => $rate_1,
                 'is_detail' => 1
 
             ]);
+
 
     }
     public function article()
