@@ -43,8 +43,7 @@
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input {{ ($category->is_active) ? 'checked':'' }} type="checkbox" value="1"
-                                           name="is_active"> Trạng thái
+                                    <input {{ ($category->is_active) ? 'checked':'' }} type="checkbox" value="1" name="is_active"> Trạng thái
                                 </label>
                             </div>
                             <div class="form-group">

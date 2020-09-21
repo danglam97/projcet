@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -15,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data = Category::latest()->paginate(10); // sắp sếp theo thứ tự mới nhất && phân trang
+            $data = Category::latest()->paginate(10); // sắp sếp theo thứ tự mới nhất && phân trang
 
         return view('Admin.category.index', [
             'data' => $data
@@ -84,6 +85,7 @@ class CategoryController extends Controller
 
         $category->position = $request->input('position');
         $category->Type = $request->input('Type');
+        $category->user_id = Auth::id();
         $category->save();
 
         // Chuyển hướng trang về trang danh sách
@@ -167,6 +169,8 @@ class CategoryController extends Controller
 
         $category->position = $request->input('position');
         $category->Type = $request->input('Type');
+        $category->user_id = Auth::id();
+
         $category->save();
 
 

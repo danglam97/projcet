@@ -83,7 +83,7 @@ function destroyModel(model, id) {
     var result = confirm("Bạn có chắc chắn muốn xóa ?");
     if (result) { // neu nhấn == ok , sẽ send request ajax
         $.ajax({
-            url: base_url + '/quan-tri/'+model+'/'+id, // base_url được khai báo ở đầu page == http://webshop.local
+            url: base_url + '/quan-tri/'+model+'/'+id, // base_url được khai báo ở đầu page == http://viettel.com
             type: 'DELETE',
             data: {}, // dữ liệu truyền sang nếu có
             dataType: "json", // kiểu dữ liệu trả về

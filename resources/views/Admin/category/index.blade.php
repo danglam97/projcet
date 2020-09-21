@@ -29,6 +29,7 @@
                                 <th>Tên danh mục</th>
                                 <th>Hình ảnh</th>
                                 <th>Danh mục cha</th>
+                                <th>NgườI Tạo</th>
                                 <th>Vị trí</th>
                                 <th>Trạng thái</th>
                                 <th class="text-center">Hành động</th>
@@ -45,6 +46,7 @@
                                         @endif
                                     </td>
                                     <td>{{  $item->parent->name ?? 'Trống' }}</td>
+                                    <td>{{  @$item->user->name ?? 'Trống' }}</td>
                                     <td>{{ $item->position }}</td>
                                     <td>{{ ($item->is_active == 1) ? 'Hiển thị' : 'Ẩn' }}</td>
                                     <td class="text-center">

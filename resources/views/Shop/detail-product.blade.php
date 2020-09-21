@@ -87,8 +87,8 @@
                                     @for($i=1; $i<=5; $i++)
                                          <i class="fa fa-star {{$i <= $age ? 'active': ''}}"></i>
                                     @endfor
-                                    <p>số lượng: <span>{{ $product->stock }}</span></p>
-                                    <p>Tình Trạng: <span>{{ ($product->stock >0) ? 'Còn Hàng' : 'Hết Hàng' }}</span></p>
+{{--                                    <p>số lượng: <span>{{ $product->stock }}</span></p>--}}
+{{--                                    <p>Tình Trạng: <span>{{ ($product->stock >0) ? 'Còn Hàng' : 'Hết Hàng' }}</span></p>--}}
                                 </div>
                                 <div class="single-product-price" style="font-size: 15px">
                                     @if($product->sale==0)
@@ -104,7 +104,8 @@
                                     <p class="small-title">Số Lượng</p>
                                     <div class="">
                                         <div class="">
-                                            <input class="cart-plus-minus sing-pro-qty" type="number" name="qtybutton" value="1" min="1">
+                                            <input type="hidden" id="idProduct" value="{{$product->id}}">
+                                            <input class="cart-plus-minus sing-pro-qty" style="border-radius: 5px;" type="number" name="qtybutton" id="slsp" value="1" min="1">
 
                                         </div>
                                     </div>
@@ -115,7 +116,8 @@
                                     <div class="fb-like" data-href="http://viettelstore.com/" data-width="" data-layout="button" data-action="like" data-size="large" data-share="true"></div>
                                 </div>
                                 <div class="single-product-add-cart" >
-                                    <a class="add-cart-text" title="Add to cart" href="{{route('shop.cart.add-to-cart', ['id' => $product->id]) }}" style="border-radius: 10px"> <i class="fa fa-cart-plus" aria-hidden="true"></i>  &nbsp;Giỏ Hàng </a>
+                                    <div class="ha hidden" style="background: red"></div>
+                                    <a  type="button" class="add-cart-text" title="Giỏ Hàng" style="border-radius: 10px" onclick="addToCart()"> <i class="fa fa-cart-plus" aria-hidden="true"></i >  &nbsp;Giỏ Hàng </a>
                                 </div>
                             </div>
                         </div>
@@ -174,11 +176,8 @@
                                                         @elseif($i==4)
                                                             <span>{{$rate_4}} đánh giá</span>
                                                         @else
-
                                                                 <span>{{$rate_5}} đánh giá</span>
-
-
-@endif
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 @endfor
@@ -297,14 +296,9 @@
                             </li>
                             @endforeach
                         </ul>
-{{--                        <div class="">--}}
-{{--                            <ul class="pagination pagination-sm no-margin pull-right">--}}
-{{--                                {{ $views->links() }}--}}
-{{--                            </ul>--}}
-{{--                        </div>--}}
+
                     </div>
-                    <!-- SINGLE SIDE BAR END -->
-                    <!-- SINGLE SIDE BAR START -->
+
                     <div class="single-product-right-sidebar clearfix">
                         <h2 class="left-title">Tags </h2>
                         <div class="category-tag">
@@ -349,12 +343,12 @@
                     if (key +1 <= number) {
                         $(this).addClass('ad')
                     }
-
                         });
 
                 $('.list_text').text('').text(listRatingText[number]).show();
 
             });
+
                 $('.js_rating').click(function (event) {
                     event.preventDefault();
                     if ($(" .form_rating").hasClass('hidden'))
@@ -400,5 +394,44 @@
             });
         });
 
+
+        //---------------
+        function addToCart() {
+
+            var data = {};
+            var idProduct = $('#idProduct').val();
+            var quantity = $('#slsp').val();
+            data = {
+                id: idProduct,
+                quantity: quantity
+            };
+            var totalProduct = $('#slgiohang').val();
+            var tt = Number(totalProduct);
+            var tc = Number(quantity);
+            var ac = $('.ha').val();
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '/dat-hang/them-sp-vao-gio-hang',
+                type: 'POST',
+                data: data, // dữ liệu truyền sang nếu có
+                dataType: "json", // kiểu dữ liệu trả về
+                success: function (response) { // success : kết quả trả về sau khi gửi request ajax
+                    if (response.msg != 'undefined' && response.msg == 'ok') {
+                    alert(ac);
+                        window.location='http://viettelstore.com/dat-hang';
+                            // tt = tt + tc;
+                            // $('#totalProduct').html(tt);
+                    }
+                },
+                error: function (e) { // lỗi nếu có
+                    console.log(e.message);
+                }
+            });
+
+            return false;
+        }
     </script>
+
 @endsection

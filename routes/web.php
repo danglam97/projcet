@@ -32,7 +32,7 @@ Route::post('/lien-he', 'ShopController@createContact')->name('Shop.create-conta
 // Gio hang
 Route::get('/dat-hang', 'CartController@index')->name('shop.cart');
 // thêm sp vào giỏ hàng
-Route::get('/dat-hang/them-sp-vao-gio-hang/{id}', 'CartController@addToCart')->name('shop.cart.add-to-cart');
+Route::post('/dat-hang/them-sp-vao-gio-hang', 'CartController@addToCart')->name('shop.cart.add-to-cart');
 
 // Xóa SP khỏi giỏ hàng
 Route::get('/dat-hang/xoa-sp-gio-hang/{id}', 'CartController@removeToCart')->name('shop.cart.remove-to-cart');
@@ -55,7 +55,12 @@ Route::get('/danh-gia/{id}', 'RatingController@saveRating')->name('shop.rating.p
 
 // ROUTE GROUP Admin
 // gôm nhóm router trang admin
-Route::group(['prefix' => 'quan-tri', 'as'=> 'quan-tri.' ],function () {
+Route::get('/login', 'LoginController@index')->name('dang_nhap');
+Route::post('/login', 'LoginController@postlogin')->name('postlogin');
+Route::get('/logout', 'LoginController@logout')->name('dang_xuat');
+Route::group(['prefix' => 'quan-tri','middleware'=>'checklogin', 'as'=> 'quan-tri.' ],function () {
+
+
 
     Route::get('/', 'AdminController@index')->name('admin');
 
@@ -81,4 +86,4 @@ Route::group(['prefix' => 'quan-tri', 'as'=> 'quan-tri.' ],function () {
 //
     });
 
-Auth::routes();
+

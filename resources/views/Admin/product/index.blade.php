@@ -33,8 +33,9 @@
                             <tr>
                                 <th>TT</th>
                                 <th style="max-with:200px">Tên SP</th>
+                                <th>Danh Mục</th>
                                 <th>Hình ảnh</th>
-                                <th>Số lượng</th>
+                                <th>Người Tạo</th>
                                 <th>Giá KM</th>
                                 <th>Giá Gốc</th>
                                 <th>Vị trí</th>
@@ -66,14 +67,14 @@
                                         </div>
                                         <span>{{$age}}</span>
                                     </td>
-
+                                    <td>{{  $item->category->name ?? 'Trống' }}</td>
                                     <td>
                                     @if ($item->image) <!-- Kiểm tra hình ảnh tồn tại -->
                                         <img src="{{asset($item->image)}}" width="50" height="50">
                                         @endif
                                     </td>
 
-                                    <td>{{ $item->stock }}</td>
+                                    <td>{{ ($item->user->name) ?? ' Trống' }}</td>
                                     <td>{{ $item->sale }}</td>
                                     <td>{{ $item->price }}</td>
                                     <td>{{$item->position}}</td>

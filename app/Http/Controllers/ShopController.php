@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Banner;
+use App\Brand;
 use App\Category;
 use App\Contact;
 use App\Product;
@@ -70,7 +71,7 @@ class ShopController extends GeneralController
                     }
                 }
             }
-
+            $data = Brand::all();
             // step 2 : lấy list sản phẩm theo thể loại
             $products = Product::where(['is_active' => 1])
                 ->whereIn('category_id', $ids)
@@ -80,6 +81,7 @@ class ShopController extends GeneralController
             return view('Shop.category', [
                 'category' => $cate,
                 'products' => $products,
+                'data'=>$data,
                 'is_detail' => 1
             ]);
         }else{
@@ -130,11 +132,15 @@ class ShopController extends GeneralController
             ])->get();
 
         $view = Product::where([
-            ['is_active', '=', 1],
-            ['is_hot', '=', 1],
-            ['id', '<>', $id],
-        ])->orderBy('id', 'desc')->limit(3)->get();
+            ['category_id', '=', $category->id],
+            ['total_number','=','COUNT()'],
+            ['total_rating','=','COUNT()'],
+            ['total_number', '/','total_rating'],
 
+        ])->orderBy('id', 'ASC')
+        ->orderBy('id', 'desc')
+            ->limit(3)->get();
+//dd($view);
 
         // step 2 : lấy list SP liên quan
             $relatedProducts = Product::where([
@@ -242,7 +248,7 @@ class ShopController extends GeneralController
         return view('Shop.search', [
             'products' => $products,
             'totalResult' => $totalResult,
-            'keyword' => $keyword ? $keyword : 'sai'
+            'keyword' => $keyword ? $keyword : ''
         ]);
     }
 }

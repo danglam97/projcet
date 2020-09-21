@@ -34,10 +34,11 @@ class CartController extends GeneralController
     }
 
     // Thêm sản phẩm vào giỏ hàng
-    public function addToCart(Request $request, $id)
+    public function addToCart(Request $request)
     {
+        $id = $request->id;
+        $quantity = $request->quantity;
         $product = Product::find($id);
-
         if (!$product) {
             return $this->notfound();
         }
@@ -46,11 +47,11 @@ class CartController extends GeneralController
         // Khởi tạo giỏ hàng
         $cart = new Cart($_cart);
         // Thêm sản phẩm vào giỏ
-        $cart->add($product);
+        $cart->add($product,$quantity);
         // Lưu thông tin vào session
         $request->session()->put('cart', $cart);
 
-        return redirect()->route('shop.cart');
+        return response()->json(['msg'=> 'ok'] , 200);
     }
 
     // Xóa sp khỏi giỏ hàng
@@ -206,9 +207,10 @@ class CartController extends GeneralController
                 $_detail->product_id = $product['item']->id;
                 $_detail->qty = $product['qty'];
                 $_detail->price = $product['price'];
-                $orderDetail[$key] = OrderDetail::findorFail($orderDetail);
+
 
                 $_detail->save();
+                $orderDetail[$key] = $_detail;
             }
             Mail::to($order->email)->send(new ShoppingMail($order, $orderDetail));
             // Xóa thông tin giỏ hàng Hiện tại

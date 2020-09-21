@@ -12,7 +12,10 @@ class Category extends Model
     {
         return $this->belongsTo( 'App\Category','parent_id');
     }
-
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
     // relationship one to many
     public function products()
     {

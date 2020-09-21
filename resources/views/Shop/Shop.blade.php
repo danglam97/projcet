@@ -1,5 +1,10 @@
 @extends('Shop.layouts.main')
 @section('content')
+    <style>
+        .rating .active {
+            color: #fd9727 !important;
+        }
+    </style>
     @foreach($list as  $item)
     <div class="row tow-column-product">
     <div class="row">
@@ -11,25 +16,29 @@
                 <div class="row">
                     <div class="feartured-carousel">
                         @foreach($item['products'] as $product)
+                            <?php
+                            $age = 0;
+                            if ($product->total_rating){
+                                $age = $product->total_number / $product->total_rating;
+
+                            }
+                            ?>
                         <div class="item">
                             <div class="single-product-item">
                                 <div class="product-image">
                                     <a href="{{route('Shop.detail-product',['slug' => $product->slug, 'id'=>$product->id])}}" title="{{$product->name}}"><img src="{{asset($product->image)}}" alt="product-image" /></a>
                                     @if($product->sale!=0)
-                                    <a href="#" class="new-mark-box">sale</a>
+                                    <a href="#" class="new-mark-box" >sale</a>
                                     @endif
-                                    <div class="overlay-content">
-                                        <ul>
-                                            <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a></li>
-                                            <li><a href="#" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
-                                            <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a></li>
-                                            <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
-                                        </ul>
-                                    </div>
+
                                 </div>
                                 <div class="product-info">
                                     <div class="customar-comments-box">
-
+                                        <div class="rating" style=" align-items: center; margin-left: 25px;">
+                                            @for($i=1; $i<=5 ; $i++)
+                                                <i class="fa fa-star {{$i <= $age ? 'active': ''}}"></i>
+                                            @endfor
+                                        </div>
                                     </div>
                                     <a href="{{route('Shop.detail-product',['slug' => $product->slug, 'id'=>$product->id])}}" title="{{$product->name}}">{{$product->name}}</a>
                                     <div class="price-box">

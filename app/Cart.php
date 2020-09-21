@@ -26,7 +26,7 @@ class Cart extends Model
     }
 
     // Thêm sản phẩm vào giỏ hàng
-    public function add($product)
+    public function add($product, $quantity)
     {
         // kiểm tra không tồn tại giá hoặc giá sale <= 0 thì gán nó bằng giá bán
         if (!$product->sale || $product->sale <= 0) {
@@ -43,13 +43,13 @@ class Cart extends Model
             $_item = $this->products[$product->id];
         }
 
-        $_item['qty']++;
+        $_item['qty'] = $_item['qty'] + $quantity;
         $_item['price'] = $_item['qty'] * $product->sale;
 
         $this->products[$product->id] = $_item;
 
         $this->totalPrice = $this->totalPrice + $product->sale;
-        $this->totalQty = $this->totalQty + 1; // tăng lên 1 sản phẩm
+        $this->totalQty = $this->totalQty + $quantity; // tăng lên 1 sản phẩm
     }
 
     // Xóa sản phẩm khỏi giỏ hàng

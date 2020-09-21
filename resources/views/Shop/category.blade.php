@@ -1,6 +1,34 @@
 @extends('Shop.layouts.main')
 @section('content')
-    <section class="main-content-section">
+    <style>
+
+        .filter_button {
+            width: 100%;
+            height: 30px;
+            background: green;
+            text-align: center;
+            margin-top: 25px;
+            cursor: pointer;
+            -webkit-transition: all 0.3s ease;
+            -moz-transition: all 0.3s ease;
+            -ms-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+
+        .filter_button span {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            line-height: 30px;
+            color: #FFFFFF;
+
+        }
+        .rating .active {
+            color: #fd9727 !important;
+        }
+    </style>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -10,90 +38,105 @@
                         <span><i class="fa fa-caret-right"></i></span>
                         <span>{{$category->name}}</span>
                     </div>
-                    <!-- BSTORE-BREADCRUMB END -->
-                </div>
+
             </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="right-all-product">
+                    <div class="product-left-sidebar">
+                        <div class="product-single-sidebar">
+                            <span class="sidebar-title">Giá</span>
+                            <ul>
+                                <li>
+                                    <label><strong>Range:</strong><input type="text" id="slidevalue" /></label>
+                                </li>
+                                <li>
+                                    <div id="price-range"></div>
+                                </li>
+                                <li style="margin: 5px;">
+                                    <button type="submit" class="filter_button" style=""><span>submit</span></button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="product-single-sidebar">
+                            <span class="sidebar-title">Thương hiệu</span>
 
+                            <ul class="product-color-var">
+                                @foreach($data as $item)
+                                <li>
+                                    <label class="cheker">
+                                        <input type="checkbox" name="compositions"/>
+                                        <span></span>
+                                    </label>
+                                    <a href="#">{{$item->name}}</a>
+                                </li>
+                                @endforeach
+                            </ul>
 
-                        <div class="product-shooting-area  ">
-                            <div class="product-shooting-bar " style="border: none">
-                                <!-- SHOORT-BY START -->
-                                <div class="  pull-right">
-                                    <label for="productShort  ">Tìm kiếm </label>
-                                    <div class="short-select-option">
-                                        <select name="sortby" id="productShort">
-                                            <option value="">--</option>
-                                            <option value="">Dưới 2 Triệu</option>
-                                            <option value="">Từ 2 - 4 Triệu</option>
-                                            <option value="">Từ 4 - 7 Triệu</option>
-                                            <option value="">Từ 4 - 13 Triệu</option>
-                                            <option value="">Trên 13 Triệu</option>
-                                            <option value="">Tên: A to Z</option>
-                                            <option value="">Tên: Z to A</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <!-- SHOORT-BY END -->
-
-                            </div>
                         </div>
                     </div>
+
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                    <div class="right-all-product">
+
                     <!-- ALL GATEGORY-PRODUCT START -->
                     <div class="all-gategory-product">
-                        <div class="row">
+                        <div class="row" style=" margin: 16px;    width: 93%;">
                             @foreach($products as $item)
+
+                                <?php
+                                $age = 0;
+                                if ($item->total_rating){
+                                    $age = $item->total_number / $item->total_rating;
+
+                                }
+                                ?>
                             <ul class="gategory-product">
-                                <li class="col-lg-3 col-md-4 col-sm-9 col-xs-12" >
-                                    <div class="single-product-item">
-                                        <div class="product-image" >
-                                            <a href="{{route('Shop.detail-product',['slug' => $item->slug, 'id'=>$item->id])}}" title="{{ $item->name }}" ><img src="{{asset($item->image)}}" style="width: 100% "></a>
+                                <li class="gategory-product-list col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="single-product-item">
+                                        <div class="product-image">
+                                            <a href="{{ route('Shop.detail-product', ['slug' =>$item->slug,'id' =>$item->id,]) }}"><img src="{{asset($item->image)}}" alt="product-image"></a>
                                             @if($item->sale!=0)
                                                 <a href="#" class="new-mark-box">sale</a>
                                             @endif
-                                            <div class="overlay-content">
-                                                <ul>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-search"></i></a></li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a></li>
-                                                    <li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
-                                                </ul>
-                                            </div>
+
                                         </div>
                                         <div class="product-info">
                                             <div class="customar-comments-box">
+                                                <div class="rating" style=" align-items: center; margin-left: 25px;">
+                                                    @for($i=1; $i<=5 ; $i++)
+                                                        <i class="fa fa-star {{$i <= $age ? 'active': ''}}"></i>
+                                                    @endfor
+                                                </div>
 
                                             </div>
-                                            <a href="{{route('Shop.detail-product',['slug' => $item->slug, 'id'=>$item->id])}}" title="{{$item->name}}">{{$item->name}}</a>
-                                            <div class="price-box">
+                                            <a href="{{ route('Shop.detail-product', ['slug' =>$item->slug,'id' =>$item->id,]) }}" style="    text-align: center">{{$item->name}}</a>
+                                            <div class="price-box" style="text-align: center;    margin-left: 25px;">
                                                 @if($item->sale==0)
                                                     <span class="price">{{number_format($item->price)}} <sup>đ</sup> </span>
                                                 @else
-                                                    <span class="price">{{number_format($item->sale)}} <sup>đ</sup> </span>
-                                                    <span class="old-price">{{number_format($item->price)}} <sup>đ</sup> </span>
+                                                    <span class="price" style="color: red; ">{{number_format($item->sale)}} <sup>đ</sup></span>
+                                                    &nbsp;
+                                                    <span class="old-price">{{number_format($item->price)}}<sup>đ</sup></span>
                                                 @endif
                                             </div>
                                         </div>
                                     </div>
                                 </li>
-
                             </ul>
                             @endforeach
                         </div>
-                    </div>
-                    <!-- ALL GATEGORY-PRODUCT END -->
-                    <!-- PRODUCT-SHOOTING-RESULT START -->
-                        <div class="">
+                        <div class="box-footer clearfix">
                             <ul class="pagination pagination-sm no-margin pull-right">
                                 {{ $products->links() }}
                             </ul>
                     </div>
-                    <!-- PRODUCT-SHOOTING-RESULT END -->
+
                 </div>
             </div>
+        </div>
 
+            </div>
 
-    </section>
 @endsection

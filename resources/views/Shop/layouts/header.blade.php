@@ -52,7 +52,7 @@
                             <i class="fa fa-shopping-cart cart-icon"></i>
                             <b>Giỏ Hàng</b>
                             @if(session('cart'))
-                            <span class="ajax-cart-quantity"> {{session('cart')->totalQty }}</span>
+                            <span class="ajax-cart-quantity" id="slgiohang"> {{session('cart')->totalQty }}</span>
                             @else
                                 <span class="ajax-cart-quantity"></span>
                             @endif
