@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th9 03, 2020 lúc 11:32 AM
+-- Thời gian đã tạo: Th9 21, 2020 lúc 05:14 AM
 -- Phiên bản máy phục vụ: 10.4.11-MariaDB
 -- Phiên bản PHP: 7.4.6
 
@@ -133,6 +133,7 @@ CREATE TABLE `categories` (
   `position` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `is_active` int(10) UNSIGNED NOT NULL DEFAULT 1,
   `Type` tinyint(4) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
@@ -141,28 +142,28 @@ CREATE TABLE `categories` (
 -- Đang đổ dữ liệu cho bảng `categories`
 --
 
-INSERT INTO `categories` (`id`, `name`, `slug`, `image`, `parent_id`, `position`, `is_active`, `Type`, `created_at`, `updated_at`) VALUES
-(1, 'Điện thoại', 'dien-thoai', '', 0, 1, 1, 1, '2020-03-22 20:17:22', '2020-08-04 02:07:34'),
-(3, 'Phụ kiện', 'phu-kien', NULL, 0, 3, 1, 1, '2020-03-22 20:17:53', '2020-08-11 18:55:01'),
-(4, 'Laptop', 'laptop', NULL, 0, 3, 1, 1, '2020-03-22 20:18:00', '2020-08-11 18:42:25'),
-(6, 'Đồng hồ', 'dong-ho', NULL, 0, 2, 1, 1, '2020-03-22 20:18:33', '2020-08-11 18:42:02'),
-(7, 'Apple', 'apple', NULL, 1, 11, 1, 0, '2020-03-22 20:20:33', '2020-03-22 20:20:33'),
-(8, 'Samsung', 'samsung', NULL, 1, 12, 1, 0, '2020-03-22 20:20:43', '2020-03-22 20:20:43'),
-(9, 'Oppo', 'oppo', NULL, 1, 13, 1, 0, '2020-03-22 20:20:53', '2020-03-22 20:20:53'),
-(11, 'Vsmart', 'vsmart', NULL, 1, 15, 1, 0, '2020-03-22 20:22:15', '2020-03-22 20:22:15'),
-(12, 'Apple Watch', 'apple-watch', NULL, 6, 61, 1, 0, '2020-03-22 20:28:57', '2020-03-22 20:28:57'),
-(13, 'Xiaomi', 'xiaomi', NULL, 6, 62, 1, 0, '2020-03-22 20:29:10', '2020-03-22 20:29:10'),
-(14, 'Samsung Watch', 'samsung-watch', NULL, 6, 63, 1, 0, '2020-03-22 20:29:39', '2020-03-22 20:29:39'),
-(15, 'Macbook', 'macbook', NULL, 4, 41, 1, 0, '2020-03-22 20:30:59', '2020-03-22 20:30:59'),
-(16, 'Asus', 'asus', NULL, 4, 42, 1, 0, '2020-03-22 20:31:15', '2020-03-22 20:31:15'),
-(17, 'Dell', 'dell', NULL, 4, 43, 1, 0, '2020-03-22 20:31:26', '2020-03-22 20:31:26'),
-(18, 'Lenovo', 'lenovo', NULL, 4, 44, 1, 0, '2020-03-22 20:32:00', '2020-03-22 20:32:00'),
-(19, 'Loa', 'loa', NULL, 3, 51, 1, 1, '2020-03-22 20:32:31', '2020-08-07 19:32:13'),
-(20, 'Tai nghe', 'tai-nghe', NULL, 3, 52, 1, 1, '2020-03-22 20:32:42', '2020-08-07 19:32:04'),
-(54, 'Tin Tức', 'tin-tuc', NULL, 0, 7, 0, 2, '2020-08-04 00:13:52', '2020-08-05 05:34:51'),
-(56, 'Tin Công Nghệ', 'tin-cong-nghe', NULL, 54, 1, 1, 2, '2020-08-04 04:58:32', '2020-08-04 04:58:50'),
-(57, 'Tin Khuyến Mại', 'tin-khuyen-mai', NULL, 54, 2, 1, 1, '2020-08-04 04:59:40', '2020-08-04 04:59:40'),
-(58, 'Sạc Pin Dự Phòng', 'sac-pin-du-phong', NULL, 3, 3, 1, 1, '2020-08-07 19:39:11', '2020-08-07 19:39:11');
+INSERT INTO `categories` (`id`, `name`, `slug`, `image`, `parent_id`, `position`, `is_active`, `Type`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'Điện thoại', 'dien-thoai', '', 0, 1, 1, 1, 0, '2020-03-22 20:17:22', '2020-09-14 00:36:09'),
+(3, 'Phụ kiện', 'phu-kien', NULL, 0, 3, 1, 1, 0, '2020-03-22 20:17:53', '2020-08-11 18:55:01'),
+(4, 'Laptop', 'laptop', NULL, 0, 3, 1, 1, 0, '2020-03-22 20:18:00', '2020-08-11 18:42:25'),
+(6, 'Đồng hồ', 'dong-ho', NULL, 0, 2, 1, 1, 0, '2020-03-22 20:18:33', '2020-08-11 18:42:02'),
+(7, 'Apple', 'apple', NULL, 1, 11, 1, 0, 0, '2020-03-22 20:20:33', '2020-03-22 20:20:33'),
+(8, 'Samsung', 'samsung', NULL, 1, 12, 1, 0, 0, '2020-03-22 20:20:43', '2020-03-22 20:20:43'),
+(9, 'Oppo', 'oppo', NULL, 1, 13, 1, 0, 0, '2020-03-22 20:20:53', '2020-03-22 20:20:53'),
+(11, 'Vsmart', 'vsmart', NULL, 1, 15, 1, 0, 0, '2020-03-22 20:22:15', '2020-03-22 20:22:15'),
+(12, 'Apple Watch', 'apple-watch', NULL, 6, 61, 1, 0, 0, '2020-03-22 20:28:57', '2020-03-22 20:28:57'),
+(13, 'Xiaomi', 'xiaomi', NULL, 6, 62, 1, 0, 0, '2020-03-22 20:29:10', '2020-03-22 20:29:10'),
+(14, 'Samsung Watch', 'samsung-watch', NULL, 6, 63, 1, 0, 0, '2020-03-22 20:29:39', '2020-03-22 20:29:39'),
+(15, 'Macbook', 'macbook', NULL, 4, 41, 1, 0, 0, '2020-03-22 20:30:59', '2020-03-22 20:30:59'),
+(16, 'Asus', 'asus', NULL, 4, 42, 1, 0, 0, '2020-03-22 20:31:15', '2020-03-22 20:31:15'),
+(17, 'Dell', 'dell', NULL, 4, 43, 1, 0, 0, '2020-03-22 20:31:26', '2020-03-22 20:31:26'),
+(18, 'Lenovo', 'lenovo', NULL, 4, 44, 1, 0, 0, '2020-03-22 20:32:00', '2020-03-22 20:32:00'),
+(19, 'Loa', 'loa', NULL, 3, 51, 1, 1, 0, '2020-03-22 20:32:31', '2020-08-07 19:32:13'),
+(20, 'Tai nghe', 'tai-nghe', NULL, 3, 52, 1, 1, 0, '2020-03-22 20:32:42', '2020-08-07 19:32:04'),
+(54, 'Tin Tức', 'tin-tuc', NULL, 0, 7, 0, 2, 0, '2020-08-04 00:13:52', '2020-09-08 01:58:47'),
+(56, 'Tin Công Nghệ', 'tin-cong-nghe', NULL, 54, 1, 1, 2, 0, '2020-08-04 04:58:32', '2020-08-04 04:58:50'),
+(57, 'Tin Khuyến Mại', 'tin-khuyen-mai', NULL, 54, 2, 1, 1, 0, '2020-08-04 04:59:40', '2020-08-04 04:59:40'),
+(58, 'Sạc Pin Dự Phòng', 'sac-pin-du-phong', NULL, 3, 3, 1, 1, 4, '2020-08-07 19:39:11', '2020-09-18 05:40:24');
 
 -- --------------------------------------------------------
 
@@ -256,7 +257,16 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`id`, `code`, `fullname`, `email`, `address`, `address2`, `phone`, `discount`, `note`, `coupon`, `total`, `user_id`, `order_status_id`, `payment_id`, `created_at`, `updated_at`) VALUES
 (130, 'DH-130-01092020', 'Hảo hảo', '1611062014@hunre.edu.vn', 'áđá', NULL, '123456789', 0, 'ad', NULL, 320000, 0, 1, 0, '2020-09-01 05:17:44', '2020-09-01 05:17:44'),
 (131, 'DH-131-01092020', 'Hảo hảo', 'danglam932@gmail.com', 'áđá', NULL, '123456789', 0, 'da', NULL, 3000, 0, 1, 0, '2020-09-01 05:27:31', '2020-09-01 05:27:31'),
-(132, 'DH-132-03092020', 'Hảo hảo', 'trdoan2491999@gmail.com', 'áđá', NULL, '123456789', 0, 'da', NULL, 24000, 0, 1, 0, '2020-09-03 01:58:30', '2020-09-03 01:58:30');
+(132, 'DH-132-03092020', 'Hảo hảo', 'trdoan2491999@gmail.com', 'áđá', NULL, '123456789', 0, 'da', NULL, 24000, 0, 1, 0, '2020-09-03 01:58:30', '2020-09-03 01:58:30'),
+(133, 'DH-133-11092020', 'Hảo hảo', '1611062014@hunre.edu.vn', 'áđá', NULL, '123456789', 0, 'áđá', NULL, 7990000, 0, 1, 0, '2020-09-10 21:00:50', '2020-09-10 21:00:50'),
+(134, 'DH-134-11092020', 'Hảo hảo', '1611062014@hunre.edu.vn', 'áđá', NULL, '123456789', 0, 'đá', NULL, 3000, 0, 1, 0, '2020-09-10 21:03:17', '2020-09-10 21:03:17'),
+(135, 'DH-135-11092020', 'Hảo hảo', '1611062014@hunre.edu.vn', 'áđá', NULL, '123456789', 0, 'ád', NULL, 7990000, 0, 1, 0, '2020-09-11 06:33:22', '2020-09-11 06:33:22'),
+(136, 'DH-136-11092020', 'Hảo hảo', '1611062014@hunre.edu.vn', 'áđá', NULL, '123456789', 0, 'áđa', NULL, 7990000, 0, 1, 0, '2020-09-11 06:33:47', '2020-09-11 06:33:47'),
+(137, 'DH-137-11092020', 'Hảo hảo', '1611062014@hunre.edu.vn', 'áđá', NULL, '123456789', 0, 'ađa', NULL, 25099000, 0, 1, 0, '2020-09-11 06:42:53', '2020-09-11 06:42:53'),
+(138, 'DH-138-11092020', 'Hảo hảo', '1611062014@hunre.edu.vn', 'áđá', NULL, '123456789', 0, 'ađa', NULL, 7990000, 0, 1, 0, '2020-09-11 06:46:41', '2020-09-11 06:46:41'),
+(139, 'DH-139-11092020', 'Hảo hảo', '1611062014@hunre.edu.vn', 'áđá', NULL, '123456789', 0, 'dâddddd', NULL, 7990000, 0, 1, 0, '2020-09-11 06:47:26', '2020-09-11 06:47:27'),
+(140, 'DH-140-11092020', 'Hảo hảo', '1611062014@hunre.edu.vn', 'áđá', NULL, '123456789', 0, 'áđa', NULL, 7990000, 0, 1, 0, '2020-09-11 06:48:53', '2020-09-11 06:48:53'),
+(141, 'DH-141-11092020', 'Hảo hảo', 'danglam932@gmail.com', 'áđá', NULL, '123456789', 0, 'ađa', NULL, 7993000, 0, 1, 0, '2020-09-11 06:52:33', '2020-09-11 06:52:33');
 
 -- --------------------------------------------------------
 
@@ -283,7 +293,17 @@ CREATE TABLE `order_detail` (
 INSERT INTO `order_detail` (`id`, `name`, `image`, `sku`, `user_id`, `order_id`, `product_id`, `price`, `qty`) VALUES
 (52, 'Thẻ nhớ MicroSD 32 GB Lexar class 10 UHS-I', 'uploads/product/1586668015_the-nho-microsd-32gb-lexar-class-10-uhs-i-5-400x400.jpg', NULL, 0, 130, 55, 320000, 1),
 (53, 'Samsung Galaxy S10 Lite', 'uploads/product/1597827871_samsung-galaxy-s10-lite-blue-chi-tiet-400x460.png', NULL, 0, 131, 59, 3000, 1),
-(54, 'Samsung Galaxy S10 Lite', 'uploads/product/1597827871_samsung-galaxy-s10-lite-blue-chi-tiet-400x460.png', NULL, 0, 132, 59, 24000, 8);
+(54, 'Samsung Galaxy S10 Lite', 'uploads/product/1597827871_samsung-galaxy-s10-lite-blue-chi-tiet-400x460.png', NULL, 0, 132, 59, 24000, 8),
+(55, 'Iphone 7 Plus 32GB - NEW', 'uploads/product/1584949065_iphone-7-plus-gold-400x460-400x460.png', NULL, 0, 133, 30, 7990000, 1),
+(56, 'Samsung Galaxy S10 Lite', 'uploads/product/1597827871_samsung-galaxy-s10-lite-blue-chi-tiet-400x460.png', NULL, 0, 134, 59, 3000, 1),
+(57, 'Iphone 7 Plus 32GB - NEW', 'uploads/product/1584949065_iphone-7-plus-gold-400x460-400x460.png', NULL, 0, 135, 30, 7990000, 1),
+(58, 'Iphone 7 Plus 32GB - NEW', 'uploads/product/1584949065_iphone-7-plus-gold-400x460-400x460.png', NULL, 0, 136, 30, 7990000, 1),
+(59, 'Samsung Galaxy S20 Ultra', 'uploads/product/1584948393_600_samsung-galaxy-s20-ultra-5g.jpg', NULL, 0, 137, 26, 25099000, 1),
+(60, 'Iphone 7 Plus 32GB - NEW', 'uploads/product/1584949065_iphone-7-plus-gold-400x460-400x460.png', NULL, 0, 138, 30, 7990000, 1),
+(61, 'Iphone 7 Plus 32GB - NEW', 'uploads/product/1584949065_iphone-7-plus-gold-400x460-400x460.png', NULL, 0, 139, 30, 7990000, 1),
+(62, 'Iphone 7 Plus 32GB - NEW', 'uploads/product/1584949065_iphone-7-plus-gold-400x460-400x460.png', NULL, 0, 140, 30, 7990000, 1),
+(63, 'Samsung Galaxy S10 Lite', 'uploads/product/1597827871_samsung-galaxy-s10-lite-blue-chi-tiet-400x460.png', NULL, 0, 141, 59, 3000, 1),
+(64, 'Iphone 7 Plus 32GB - NEW', 'uploads/product/1584949065_iphone-7-plus-gold-400x460-400x460.png', NULL, 0, 141, 30, 7990000, 1);
 
 -- --------------------------------------------------------
 
@@ -381,7 +401,7 @@ INSERT INTO `products` (`id`, `name`, `slug`, `image`, `stock`, `price`, `sale`,
 (18, 'Macbook Air 13 inch 2019 – Core i5 128GB 8GB RAM – NEW', 'macbook-air-13-inch-2019-core-i5-128gb-8gb-ram-new', 'uploads/product/1584947569_mac_air_2019.jpg', 6, 26790000, 26490000, 18, 1, 1, 0, 18, NULL, 'sdtpcmt', NULL, 0, NULL, NULL, 6, 0, NULL, NULL, NULL, NULL, 0, 0, 0, '2020-03-23 00:12:49', '2020-08-11 20:25:49'),
 (19, 'Samsung Galaxy Watch 42mm', 'samsung-galaxy-watch-42mm', 'uploads/product/1584947672_dong-ho-thong-minh-samsung-galaxy-watch-42mm-20-20-600x600.jpg', 2, 6990000, 6990000, 19, 1, 1, 0, 6, NULL, '0', NULL, 0, NULL, NULL, 5, 6, NULL, NULL, NULL, NULL, 0, 5, 5, '2020-03-23 00:14:32', '2020-08-31 02:01:48'),
 (20, 'Mi Band 4', 'mi-band-4', 'uploads/product/1584947723_mi-band-4-6-600x600.jpg', 5, 850000, 750000, 20, 1, 1, 0, 6, NULL, NULL, NULL, 0, NULL, NULL, 7, 6, NULL, NULL, NULL, NULL, 0, 10, 0, '2020-03-23 00:15:23', '2020-08-31 01:55:49'),
-(21, 'Apple AirPods 2 VN/A', 'apple-airpods-2-vna', 'uploads/product/1584947820_apple airpods 2.jpg', 30, 5900000, 3650000, 21, 1, 1, 0, 20, 'https://cellphones.com.vn/apple-airpods-2.html', NULL, NULL, 0, NULL, NULL, 6, 4, NULL, NULL, NULL, NULL, 0, 0, 0, '2020-03-23 00:17:00', '2020-03-23 00:17:00'),
+(21, 'Apple AirPods 2 VN/A', 'apple-airpods-2-vna', 'uploads/product/1584947820_apple airpods 2.jpg', 30, 5900000, 3650000, 21, 1, 1, 0, 20, NULL, NULL, NULL, 0, NULL, NULL, 6, 4, NULL, NULL, NULL, NULL, 4, 0, 0, '2020-03-23 00:17:00', '2020-09-18 18:57:35'),
 (22, 'Airpods Pro', 'airpods-pro', 'uploads/product/1584947890_637094271123296138_HASP-00629662-1.jfif', 50, 7390000, 7390000, 22, 1, 1, 0, 20, 'https://fptshop.com.vn/phu-kien/apple-tai-nghe-airpods-pro', NULL, NULL, 0, NULL, NULL, 6, 8, NULL, NULL, NULL, NULL, 0, 4, 0, '2020-03-23 00:18:10', '2020-08-31 01:44:08'),
 (23, 'Galaxy Buds', 'galaxy-buds', 'uploads/product/1584947979_galaxy buds.jpg', 10, 4490000, 2390000, 23, 1, 1, 0, 20, NULL, NULL, NULL, 0, NULL, NULL, 5, 4, NULL, NULL, NULL, NULL, 0, 0, 0, '2020-03-23 00:19:39', '2020-08-07 19:50:19'),
 (24, 'LAPTOP DELL INSPRION 7591 KJ2G41(I7 9750H 8GB / 256GB SSD/15.6FHD / VGA 3GB / Win 10 / Bạc)', 'laptop-dell-insprion-7591-kj2g41i7-9750h-8gb-256gb-ssd156fhd-vga-3gb-win-10-bac', 'uploads/product/1584948108_30089_laptop_dell_inspiron_15_7591_kj2g41_1.jpg', 10, 29990000, 2890000, 24, 1, 1, 0, 4, 'https://cellphones.com.vn/laptop-dell-insprion-7591-kj2g41-core-i7-9750h-ram-8gb-ssd-256gb-15-6inch-fhd-vga-3gb.html', NULL, NULL, 0, NULL, NULL, 8, 4, NULL, NULL, NULL, NULL, 0, 0, 0, '2020-03-23 00:21:48', '2020-03-23 00:21:48'),
@@ -566,7 +586,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `role_id`, `avatar`, `is_active`) VALUES
 (1, 'Hoàng Dũng', 'hcdung209@gmail.com', '$2y$10$TNWZo9WER49I.Z5ad4hIMO/cQRYAn8nMXOSgajlfo/pO.LEaXLKxq', NULL, '2020-04-10 21:24:51', '2020-05-19 12:32:10', 1, 'uploads/user/1586579091_Tổng-hợp-hình-ảnh-avatar-dễ-thương-làm-hình-đại-diện-đẹp-nhất-1.jpg', 1),
 (2, 'Ngọc Hà', 'ngocha18082407@gmail.com', '2345678', NULL, '2020-04-10 21:25:55', '2020-04-10 21:25:55', 2, 'uploads/user/1586579155_tai-hinh-chibi-bst.jpg', 1),
-(3, 'admin', 'admin@gmail.com', '$2y$10$CWWZcJDTL2Xf1O8ZaD99dOrImQSKfePrU8L19Hw/vcqUca6u2T0uq', 'J5PAbgp9KSeWD0hXfj1A8en6gviUoLapOir1ZVcx6WBGVl5Sl0rIy5AG7RKv', '2020-05-19 12:32:27', '2020-05-19 12:32:27', 1, NULL, 1);
+(3, 'admin', 'admin@gmail.com', '$2y$10$CWWZcJDTL2Xf1O8ZaD99dOrImQSKfePrU8L19Hw/vcqUca6u2T0uq', 'J5PAbgp9KSeWD0hXfj1A8en6gviUoLapOir1ZVcx6WBGVl5Sl0rIy5AG7RKv', '2020-05-19 12:32:27', '2020-05-19 12:32:27', 1, NULL, 1),
+(4, 'Hảo hảo', 'danglam932@gmail.com', '$2y$10$htJfi2minrOv7.co62HI.OW2MlS/VRvBdBsjekf0zYNm.YwA9UZHW', NULL, '2020-09-08 00:12:39', '2020-09-08 00:12:39', 0, 'uploads/user/1586579091_Tổng-hợp-hình-ảnh-avatar-dễ-thương-làm-hình-đại-diện-đẹp-nhất-1.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -597,8 +618,7 @@ INSERT INTO `vendors` (`id`, `name`, `slug`, `email`, `phone`, `image`, `website
 (4, 'Cellphones', 'cellphones', 'cskh@cellphones.com.vn', '1800.2097', 'uploads/vendor/1584935240_logo.jpg', 'https://didongviet.vn/', 'Việt Nam', 1, 1, '2020-03-22 20:47:20', '2020-03-22 20:49:25'),
 (5, 'Di động Việt', 'di-dong-viet', 'lienhe@didongviet.vn', '1800 6018', 'uploads/vendor/1584935377_logo-ddv-full-03.png', 'https://didongviet.vn/', 'Việt Nam', 2, 1, '2020-03-22 20:49:37', '2020-03-22 20:49:37'),
 (6, 'Thế Giới Di Động', 'the-gioi-di-dong', 'cskh@thegioididong.com', '1800 1060', 'uploads/vendor/1584935523_Logo-Thegioididong-945x709.jpg', 'https://www.thegioididong.com/', 'Việt Nam', 3, 1, '2020-03-22 20:52:03', '2020-03-22 20:52:03'),
-(8, 'FPT Shop', 'fpt-shop', 'fptshop@fpt.com.vn', '1800 6601', 'uploads/vendor/1584935728_637133160350737542_201407171129187887_1378267132_fptshop-ver1-0-logo-color-bg-black.jpg', 'https://fptshop.com.vn/', 'Việt Nam', 5, 1, '2020-03-22 20:55:28', '2020-03-22 20:55:28'),
-(12, 'lam', 'lam', 'lam@gmail.com', '123456789', 'uploads/vendor/1596097512_admin.png', 'haohao.com', 'áđá', 2, 1, '2020-07-30 01:25:12', '2020-07-30 01:31:29');
+(8, 'FPT Shop', 'fpt-shop', 'fptshop@fpt.com.vn', '1800 6601', 'uploads/vendor/1584935728_637133160350737542_201407171129187887_1378267132_fptshop-ver1-0-logo-color-bg-black.jpg', 'https://fptshop.com.vn/', 'Việt Nam', 5, 1, '2020-03-22 20:55:28', '2020-03-22 20:55:28');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -744,7 +764,7 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT cho bảng `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT cho bảng `contacts`
@@ -768,13 +788,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
 
 --
 -- AUTO_INCREMENT cho bảng `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT cho bảng `order_status`
@@ -816,7 +836,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `vendors`

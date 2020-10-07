@@ -30,6 +30,7 @@
                                 <th>TT</th>
                                 <th>Tên Thương Hiệu</th>
                                 <th>Hình ảnh</th>
+                                <th>Người Tạo</th>
                                 <th>WebSite</th>
                                 <th>Vị trí</th>
                                 <th>Trạng thái</th>
@@ -46,6 +47,7 @@
                                         <img src="{{asset($item->image)}}" width="50" height="50">
                                         @endif
                                     </td>
+                                    <td>{{ ($item->user->name) ?? ' Trống' }}</td>
                                     <td>{{ $item->website }}</td>
                                     <td>{{ $item->position }}</td>
                                     <td>{{ ($item->is_active == 1) ? 'Hiển thị' : 'Ẩn' }}</td>

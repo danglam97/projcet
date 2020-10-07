@@ -44,7 +44,7 @@ class ShopController extends GeneralController
                         ->get();
                 }
             }
-//            dd($list);dd($list);
+
 
         return view('Shop.Shop',[
             'list' => $list
@@ -71,13 +71,14 @@ class ShopController extends GeneralController
                     }
                 }
             }
+
             $data = Brand::all();
             // step 2 : lấy list sản phẩm theo thể loại
             $products = Product::where(['is_active' => 1])
                 ->whereIn('category_id', $ids)
                 ->orderBy('id', 'desc')
                 ->paginate(8);
-        //            dd($products);
+
             return view('Shop.category', [
                 'category' => $cate,
                 'products' => $products,

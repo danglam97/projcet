@@ -78,6 +78,7 @@ class BrandController extends Controller
         // Vị trí
         $brand->position = $request->input('position');
         // Lưu
+        $brand->user_id = Auth::id();
         $brand->save();
 
         // Chuyển hướng trang về trang danh sách

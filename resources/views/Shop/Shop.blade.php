@@ -23,7 +23,7 @@
 
                             }
                             ?>
-                        <div class="item">
+                         <div class="item">
                             <div class="single-product-item">
                                 <div class="product-image">
                                     <a href="{{route('Shop.detail-product',['slug' => $product->slug, 'id'=>$product->id])}}" title="{{$product->name}}"><img src="{{asset($product->image)}}" alt="product-image" /></a>
