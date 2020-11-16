@@ -172,6 +172,12 @@ class CartController extends GeneralController
             'phone' => 'required',
             'email' => 'required|email',
             'address' => 'required',
+        ],[
+            'fullname.required' => 'Tên không được để trống',
+            'phone.required' => 'SĐT không được để trống',
+            'email.required' => 'Email không được để trống',
+            'address.required' => 'Địa Chỉ không được để trống',
+            'address.required' => 'Địa Chỉ không được để trống',
         ]);
 
         // Kiểm tra tồn tại giỏ hàng cũ

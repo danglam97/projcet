@@ -186,7 +186,7 @@
 
                                             <div class=" col-lg-2 padding-5">
                                                 <div class="" style="display: block; width: 200px; margin: 41px auto 0;padding: 10px; background: #288ad6;border-radius: 5px; text-align: center;box-sizing: border-box">
-                                                    <a href="" class="js_rating" style="color: white"  >Gửi đánh giá của bạn</a>
+                                                    <a href="" class="js_rating" style="color: white"  >Chọn Đánh Giá</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -401,14 +401,17 @@
             var data = {};
             var idProduct = $('#idProduct').val();
             var quantity = $('#slsp').val();
+
             data = {
                 id: idProduct,
                 quantity: quantity
             };
+
             var totalProduct = $('#slgiohang').val();
             var tt = Number(totalProduct);
             var tc = Number(quantity);
             var ac = $('.ha').val();
+
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -419,9 +422,10 @@
                 dataType: "json", // kiểu dữ liệu trả về
                 success: function (response) { // success : kết quả trả về sau khi gửi request ajax
                     if (response.msg != 'undefined' && response.msg == 'ok') {
-                    alert(ac);
+
+                             // tt = tt + tc;
+                        alert('bạn đã mua hàng thành công');
                         window.location='http://viettelstore.com/dat-hang';
-                            // tt = tt + tc;
                             // $('#totalProduct').html(tt);
                     }
                 },

@@ -6,7 +6,7 @@
             Danh Sách Đơn Hàng
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/">Trang chủ</a></li>
+            <li>Trang chủ</li>
             <li>Danh Sách Đơn Hàng</li>
         </ol>
     </section>

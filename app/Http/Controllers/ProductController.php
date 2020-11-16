@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Brand;
+use App\components\MenuRecursive;
 use App\Product;
 use App\Category;
 use App\Vendor;
@@ -16,6 +17,12 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $menuRecursive;
+    public function __construct(MenuRecursive $menuRecursive)
+    {
+        $this->MenuRecursive = $menuRecursive;
+    }
+
     public function index()
     {
         $data = Product::paginate(20);
@@ -32,13 +39,14 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+//        $categories = Category::all();
         $brands = Brand::all();
         $vendors = Vendor::all();
-
+        $menu =  $this->MenuRecursive->MenuRecursiveAdd();
         return view('Admin.product.create', [
-            'categories' => $categories,
+//            'categories' => $categories,
             'brands' => $brands,
+            'menu' => $menu,
             'vendors' => $vendors
         ]);
     }
@@ -82,7 +90,7 @@ class ProductController extends Controller
         $product->sale = $request->input('sale');
 
         $product->category_id = $request->input('category_id');
-
+dd($product->category_id);
         $product->brand_id = $request->input('brand_id');
         $product->vendor_id = $request->input('vendor_id');
         $product->sku = $request->input('sku');
@@ -143,9 +151,10 @@ class ProductController extends Controller
         $categories = Category::all();
         $brands = Brand::all();
         $vendors = Vendor::all();
-
+        $menu =  $this->MenuRecursive->MenuRecursiveEdit($product->category_id);
         return view('Admin.product.edit', [
             'product' => $product,
+            'menu' => $menu,
             'categories' => $categories,
             'brands' => $brands,
             'vendors' => $vendors

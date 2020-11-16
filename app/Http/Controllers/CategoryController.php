@@ -3,12 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\components\MenuRecursive;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
+    private $menuRecursive;
+    public function __construct(MenuRecursive $menuRecursive)
+    {
+        $this->MenuRecursive = $menuRecursive;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,9 +38,11 @@ class CategoryController extends Controller
     public function create()
     {
         $data = Category::all();
+        $menu =  $this->MenuRecursive->MenuRecursiveAdd();
 
         return view('Admin.category.create', [
-            'data' => $data //truyền data sang view
+            'data' => $data, //truyền data sang view
+            'menu' => $menu, //truyền data sang view
         ]);
 
     }
@@ -118,12 +127,15 @@ class CategoryController extends Controller
     public function edit($id)
     {
         // get data from db
-        $data = Category::all();
+       $data = Category::all();
         $category = Category::findorFail($id);
+        $menu =  $this->MenuRecursive->MenuRecursiveEdit($category->parent_id);
 
         return view('Admin.category.edit', [
             'data' => $data,
+            'menu' => $menu,
             'category'=>$category
+
         ]);
     }
 

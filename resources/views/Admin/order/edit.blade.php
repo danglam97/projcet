@@ -128,13 +128,13 @@
                             </tbody>
 {{--                        {{dd($order->details)}}--}}
                             <!-- Lặp một mảng dữ liệu pass sang view để hiển thị -->
-                                @foreach($order->details as $key => $item)
+                                    @foreach($order->details as $key => $item)
 
-                                <tr class="item-{{ $item->id }}"> <!-- Thêm Class Cho Dòng -->
+                                <tr class="item-{{ $item->product_id }}"> <!-- Thêm Class Cho Dòng -->
                                     <td>{{ $key ++}}</td>
                                     <td>
                                         <a href="   ">
-                                            {{ substr($item->name, 0, 50) }}
+                                            {{ Str::limit($item->name, 50 )}}
                                         </a>
                                     </td>
                                     <td>
@@ -189,7 +189,7 @@
 
                             if (response.status == true) {
                                 // xóa dòng vừa được click delete
-                                $('.item-'+id).closest('tr').remove(); // class .item- ở trong class của thẻ td đã khai báo trong file index
+                                $('.item-'+product_id).closest('tr').remove(); // class .item- ở trong class của thẻ td đã khai báo trong file index
                             }
                         },
                         error: function (e) { // lỗi nếu có

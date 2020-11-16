@@ -15,7 +15,11 @@ class GeneralController extends Controller
     public function __construct()
     {
         // Lấy dữ liệu - Danh mục sản phẩm
-        $categories = Category::where('is_active',1)->orderBy('position', 'ASC')->get();
+
+        $categories = Category::where('is_active',1)
+            ->orderBy('position', 'ASC')
+            ->orderBy('position', 'DESC')
+            ->get();
         // lấy dữ liệu - banner
         $banners = Banner::where('is_active',1)->orderBy('position', 'ASC')->orderBy('id', 'DESC')->get();
         $brand = Brand::where('is_active',1)->orderBy('position', 'ASC')->get();

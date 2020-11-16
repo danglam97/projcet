@@ -1,6 +1,11 @@
 @extends('Admin.layouts.main')
 @section('content')
-    <style>tr td:first-child {max-width: 250px}</style>
+    <style>
+        table
+        {margin-top: 50px;}
+        tr td:first-child {max-width: 250px}
+
+    </style>
     <section class="content-header">
         <h1>
             Danh Sách Tin Tức <a href="{{route('quan-tri.article.create')}}" class="btn btn-info pull-right"><i class="fa fa-plus"></i> Thêm Bài Viết</a>
@@ -10,8 +15,8 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
-                    <div class="box-header">
-                        <div class="box-tools">
+                    <div class="box-header"style="margin-top: 2px">
+                        <div class="box-tools" >
                             <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
                                 <input type="text" name="table_search" class="form-control pull-right"
                                        placeholder="Search">
@@ -24,7 +29,7 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
-                        <table class="table table-hover">
+                        <table class="table table-hover" style="margin-top: 50px;" >
                             <tbody>
                             <tr>
                                 <th>TT</th>
@@ -57,13 +62,13 @@
                                     </td>
                                     <td>{{ $item->position }}</td>
                                     <td>{{ ($item->is_active == 1) ? 'Hiển thị' : 'Ẩn' }}</td>
-                                    <td class="text-center">
-                                        <a href="{{route('quan-tri.article.edit', ['id'=> $item->id])}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
-                                        <!-- Thêm sự kiện onlick cho nút xóa -->
-                                        <a href="javascript:void(0)" class="btn btn-danger" onclick="destroyModel('article', {{ $item->id }})" >
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </td>
+                                        <td class="text-center">
+                                            <a href="{{route('quan-tri.article.edit', ['id'=> $item->id])}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
+                                            <!-- Thêm sự kiện onlick cho nút xóa -->
+                                            <a href="javascript:void(0)" class="btn btn-danger" onclick="destroyModel('article', {{ $item->id }})" >
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
                                 </tr>
                             @endforeach
                         </table>

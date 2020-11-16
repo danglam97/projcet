@@ -55,9 +55,11 @@
                                 <label>Danh mục sản phẩm</label>
                                 <select class="form-control w-50" name="category_id">
                                     <option value="0">-- chọn Danh Mục --</option>
-                                    @foreach($categories as $category)
-                                        <option value="{{ $category -> id }}">{{ $category -> name }}</option>
-                                    @endforeach
+                                    {!! $menu !!}
+
+{{--                                    @foreach($categories as $category)--}}
+{{--                                        <option value="{{ $category -> id }}">{{ $category -> name }}</option>--}}
+{{--                                    @endforeach--}}
                                 </select>
                             </div>
                             <div class="form-group">

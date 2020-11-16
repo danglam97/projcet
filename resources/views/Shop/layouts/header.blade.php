@@ -104,7 +104,9 @@
                                     <div class="left-mega col-xs-6">
 
                                         <div class="mega-menu-list">
-                                                    <a href="{{ route('Shop.category',['slug' => $child->slug]) }}" style="text-align: center">{{ $child->name }}</a>
+                                               <a href="{{ route('Shop.category',['slug' => $child->slug]) }}" style="text-align: center">{{ $child->name }}
+                                                
+                                               </a>
                                         </div>
                                     </div>
                                         @endif

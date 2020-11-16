@@ -81,8 +81,9 @@
                                                 <div class="type-of-text">
                                                     <div class="form-group primary-form-group">
                                                         <label>Địa chỉ nhận hàng</label>
-                                                        <textarea style="height: auto" class="contact-text" name="address"></textarea>
+                                                        <textarea style="height: auto" class="form-control input-feild" name="address"></textarea>
                                                         @if ($errors->has('address'))
+
                                                             <span class="invalid-feedback" role="alert" style="color:red;">{{ $errors->first('address') }}</span>
                                                         @endif
                                                     </div>
@@ -90,7 +91,7 @@
                                                 <div class="type-of-text">
                                                     <div class="form-group primary-form-group">
                                                         <label>Ghi chú</label>
-                                                        <textarea style="height: 104px" class="contact-text" name="note"></textarea>
+                                                        <textarea style="height: 104px" class="form-control input-feild" name="note"></textarea>
                                                     </div>
                                                 </div>
                                             </div>

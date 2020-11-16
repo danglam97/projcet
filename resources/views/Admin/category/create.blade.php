@@ -34,9 +34,10 @@
                                 <label>Danh mục cha</label>
                                 <select class="form-control" name="parent_id">
                                     <option value="0">-- chọn --</option>
-                                    @foreach($data as $item)
-                                        <option value="{{ $item -> id }}">{{ $item -> name }}</option>
-                                    @endforeach
+                                    {!! $menu !!}
+{{--                                    @foreach($data as $item)--}}
+{{--                                        <option value="{{ $item -> id }}">{{ $item -> name }}</option>--}}
+{{--                                    @endforeach--}}
                                 </select>
                             </div>
                             <div class="form-group">

@@ -92,6 +92,7 @@ class ShopController extends GeneralController
 
     public function detailProduct($slug, $id)
     {
+
 //        if (!$id){
 //            return $this->notfound();
 //        }

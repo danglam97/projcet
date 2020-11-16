@@ -24,9 +24,10 @@
                                 <label>Danh mục cha</label>
                                 <select class="form-control" name="parent_id">
                                     <option value="0">-- Chọn --</option>
-                                    @foreach($data as $item)
-                                        <option {{ ($category->parent_id == $item->id ? 'selected':'') }} value="{{ $item -> id }}">{{ $item -> name }}</option>
-                                    @endforeach
+                                    {!! $menu !!}
+{{--                                    @foreach($data as $item)--}}
+{{--                                      <option {{ ($category->parent_id == $item->id ? 'selected':'') }} value="{{ $item -> id }}">{!! $menu !!}</option>--}}
+{{--                                    @endforeach--}}
                                 </select>
                             </div>
                             <div class="form-group">
@@ -37,7 +38,7 @@
                             <div class="form-group">
                                 <label for="exampleInputFile">Change File</label>
                                 <input type="file" id="new_image" name="new_image"><br>
-                                @if ($item->image)
+                                @if ($category->image)
                                     <img src="{{asset($category->image)}}" width="200">
                                 @endif
                             </div>
